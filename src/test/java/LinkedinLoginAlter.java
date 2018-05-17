@@ -37,11 +37,12 @@ public class LinkedinLoginAlter {
 
 
     public boolean isElementPresent(By by) {
+        boolean result = false;
         try {
             webDriver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
+            result = true;
+        } finally {
+            return result;
         }
     }
 
@@ -124,4 +125,10 @@ public class LinkedinLoginAlter {
 
     }
 
+
+
+//      @BeforeMethod - run each time for each
+//      @BeforeClass - run once
+    // @AfterTest
+    // @BeforeTest
 }
