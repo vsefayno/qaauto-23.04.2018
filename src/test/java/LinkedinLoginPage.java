@@ -9,18 +9,15 @@ public class LinkedinLoginPage {
     private WebElement passwordField;
     private WebElement signinButton;
 
-
-
     public LinkedinLoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
+        initElements();
+    }
+
+    public void initElements(){
         emailField = webDriver.findElement(By.id("login-email"));
         passwordField = webDriver.findElement(By.id("login-password"));
         signinButton = webDriver.findElement(By.id("login-submit"));
-    }
-
-    public WebElement getSigninButton() {
-        //signinButton = webDriver.findElement(By.id("login-submit"));
-        return signinButton;
     }
 
     public void login(String email, String password){
@@ -30,13 +27,14 @@ public class LinkedinLoginPage {
     }
 
     public boolean isSignInButtonDisplayed() {
-        boolean result = false;
-        try {
-            signinButton = webDriver.findElement(By.id("login-submit"));
-            result = true;
-        } finally {
-            return result;
-        }
+        return signinButton.isDisplayed();
     }
 
+    public String getCurrentUrl (){
+        return webDriver.getCurrentUrl();
+    }
+
+    public String getCurrentTitle () {
+        return webDriver.getTitle();
+    }
 }

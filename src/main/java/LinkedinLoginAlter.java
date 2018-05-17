@@ -125,10 +125,18 @@ public class LinkedinLoginAlter {
 
     }
 
+    public boolean isSignInButtonDisplayes() {
+        boolean result = false;
+        try {
+            //signinButton = webDriver.findElement(By.id("login-submit"));
+            result = true;
+        } finally {
+            return result;
+        }
+    }
 
+//      @Before Method - run each time for each
+//      @Before Class - run once
+//      @After
 
-//      @BeforeMethod - run each time for each
-//      @BeforeClass - run once
-    // @AfterTest
-    // @BeforeTest
 }
