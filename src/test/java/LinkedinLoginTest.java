@@ -17,7 +17,7 @@ public class LinkedinLoginTest {
     }
 
     @Test
-    public void successfulLoginTest() throws InterruptedException {
+    public void successfulLoginTest() {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
         Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
                 "LinkedIn: Log In or Sign Up","Login page wrong");
@@ -33,7 +33,7 @@ public class LinkedinLoginTest {
     }
 
     @Test
-    public void negativeLoginTest() throws InterruptedException {
+    public void negativeLoginBadPassTest() throws InterruptedException {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
         Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
                 "LinkedIn: Log In or Sign Up", "Login page wrong");
@@ -53,7 +53,7 @@ public class LinkedinLoginTest {
     }
 
     @Test
-    public void negativeLoginTest2 () throws InterruptedException {
+    public void negativeLoginBadMailBadPassTest() throws InterruptedException {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
         Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
                 "LinkedIn: Log In or Sign Up", "Login page wrong");
@@ -69,7 +69,7 @@ public class LinkedinLoginTest {
     }
 
     @Test
-    public void negativeLoginTest3 () throws InterruptedException {
+    public void negativeLoginNoPassTest() throws InterruptedException {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
         Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
                 "LinkedIn: Log In or Sign Up", "Login page wrong");
@@ -82,7 +82,7 @@ public class LinkedinLoginTest {
     }
 
     @Test
-    public void negativeLoginTest4 () throws InterruptedException {
+    public void negativeLoginNoMailTest() throws InterruptedException {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
         Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
                 "LinkedIn: Log In or Sign Up", "Login page wrong");
