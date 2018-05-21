@@ -33,7 +33,7 @@ public class LinkedinLoginTest {
     }
 
     @Test
-    public void negativeLoginBadPassTest() throws InterruptedException {
+    public void negativeLoginTest() throws InterruptedException {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
         Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
                 "LinkedIn: Log In or Sign Up", "Login page wrong");
@@ -42,14 +42,18 @@ public class LinkedinLoginTest {
         linkedinLoginPage.login("vedmedyar@gmail.com","Wrong_Pass");
         sleep(3000);
 
-        LinkedinLoginErrorPage linkedinLoginErrorPage = new LinkedinLoginErrorPage(webDriver);
-        Assert.assertEquals(linkedinLoginErrorPage.getCurrentUrl(),
+        LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage(webDriver);
+        Assert.assertEquals(linkedinLoginSubmitPage.getCurrentUrl(),
                 "https://www.linkedin.com/uas/login-submit","login-submit URL is wrong.");
-        Assert.assertEquals(linkedinLoginErrorPage.getCurrentTitle(),
+        Assert.assertEquals(linkedinLoginSubmitPage.getCurrentTitle(),
                 "Sign In to LinkedIn","login-submit URL is wrong.");
-        Assert.assertEquals(linkedinLoginErrorPage.getErrorMessage(),
+        Assert.assertEquals(linkedinLoginSubmitPage.getErrorMessage(),
                 "There were one or more errors in your submission. Please correct the marked fields below.",
                 "Wrong error message displayed");
+        Assert.assertTrue(linkedinLoginSubmitPage.isPageLoaded(),
+                "Login-Submit page is not loaded");
+
+
     }
 
     @Test
@@ -60,10 +64,10 @@ public class LinkedinLoginTest {
         linkedinLoginPage.login("11111","11111");
         sleep(3000);
 
-        LinkedinLoginErrorPage linkedinLoginErrorPage = new LinkedinLoginErrorPage(webDriver);
-        Assert.assertEquals(linkedinLoginErrorPage.getCurrentUrl(),
+        LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage(webDriver);
+        Assert.assertEquals(linkedinLoginSubmitPage.getCurrentUrl(),
                 "https://www.linkedin.com/uas/login-submit","login-submit URL is wrong.");
-        Assert.assertEquals(linkedinLoginErrorPage.getSmallErrorMessage(),
+        Assert.assertEquals(linkedinLoginSubmitPage.getSmallErrorMessage(),
                 "The password you provided must have at least 6 characters.",
                 "Wrong error message displayed");
     }
