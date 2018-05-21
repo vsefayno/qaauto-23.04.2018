@@ -9,6 +9,7 @@ public class LinkedinLoginPage {
     private WebElement passwordField;
     private WebElement signinButton;
 
+
     public LinkedinLoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         initElements();
@@ -18,6 +19,7 @@ public class LinkedinLoginPage {
         emailField = webDriver.findElement(By.id("login-email"));
         passwordField = webDriver.findElement(By.id("login-password"));
         signinButton = webDriver.findElement(By.id("login-submit"));
+
     }
 
     public void login(String email, String password){
@@ -37,4 +39,6 @@ public class LinkedinLoginPage {
     public String getCurrentTitle () {
         return webDriver.getTitle();
     }
+
+
 }

@@ -1,7 +1,5 @@
 import org.openqa.selenium.WebDriver;
 
-import java.awt.*;
-
 public class LinkedinHomePage {
     WebDriver webDriver;
 
