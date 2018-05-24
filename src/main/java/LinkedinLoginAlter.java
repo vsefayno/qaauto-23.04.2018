@@ -75,3 +75,35 @@ public class LinkedinLoginAlter {
 //      @Before Class - run once
 //      @After
 
+
+/*
+    @DataProvider
+    public Object[][] mixedDataProvider() {
+        return new Object[][] {
+                { "vedmedyar@gmail.com", "Pass_wrong" }
+        };
+    };
+
+@Test(dataProvider = "mixedDataProvider")
+public void successfulSecondTryLoginTest(String email, String password) {
+        String correctPassword = "Pass_correct";
+
+        LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
+        Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
+        "LinkedIn: Log In or Sign Up", "Login page wrong");
+        Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
+        "sign in Button is not Displayed.");
+        linkedinLoginPage.login(email, password);
+
+        LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage(webDriver);
+        Assert.assertEquals(linkedinLoginSubmitPage.getCurrentUrl(),
+        "https://www.linkedin.com/uas/login-submit","login-submit URL is wrong.");
+        Assert.assertEquals(linkedinLoginSubmitPage.getCurrentTitle(),
+        "Sign In to LinkedIn","login-submit URL is wrong.");
+
+        //create method
+        linkedinLoginPage.loginFromSubmit (email, correctPassword);
+
+        LinkedinHomePage linkedinHomePage = new LinkedinHomePage(webDriver);
+        // add asserts
+        }*/

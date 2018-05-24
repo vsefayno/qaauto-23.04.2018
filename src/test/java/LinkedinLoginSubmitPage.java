@@ -2,15 +2,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LinkedinLoginSubmitPage {
-    private WebDriver webDriver;
+public class LinkedinLoginSubmitPage extends LinkedinBasePage {
     private WebElement errorMessage;
     private WebElement userEmailField;
 
     public LinkedinLoginSubmitPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super (webDriver);
         initElements();
     }
+
 
     public void initElements() {
         errorMessage = webDriver.findElement(By.xpath("//div[@role='alert']"));
@@ -26,13 +26,5 @@ public class LinkedinLoginSubmitPage {
 
     public String getSmallErrorMessage() {
         return webDriver.findElement(By.id("session_password-login-error")).getText();
-    }
-
-    public String getCurrentUrl() {
-        return webDriver.getCurrentUrl();
-    }
-
-    public String getCurrentTitle() {
-        return webDriver.getTitle();
     }
 }
