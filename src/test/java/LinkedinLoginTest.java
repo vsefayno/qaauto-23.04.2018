@@ -32,9 +32,8 @@ public class LinkedinLoginTest {
                 "LinkedIn: Log In or Sign Up","Login page wrong");
         Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
                 "sign in Button is not Displayed.");
-        linkedinLoginPage.login(email, password);
 
-        LinkedinHomePage linkedinHomePage = new LinkedinHomePage(webDriver);
+        LinkedinHomePage linkedinHomePage = linkedinLoginPage.loginSuccess(email, password);
         Assert.assertEquals(linkedinHomePage.getCurrentUrl(),
                 "https://www.linkedin.com/feed/", "Homepage URL is wrong.");
         Assert.assertTrue(linkedinHomePage.getCurrentTitle().contains("LinkedIn"),
@@ -56,10 +55,10 @@ public class LinkedinLoginTest {
                 "LinkedIn: Log In or Sign Up", "Login page wrong");
         Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
                 "sign in Button is not Displayed.");
-        linkedinLoginPage.login(email, password);
-        sleep(3000);
 
-        LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage(webDriver);
+        LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedinLoginPage.loginError(email, password);
+
+        sleep(3000);
         Assert.assertEquals(linkedinLoginSubmitPage.getCurrentUrl(),
                 "https://www.linkedin.com/uas/login-submit","login-submit URL is wrong.");
         Assert.assertEquals(linkedinLoginSubmitPage.getCurrentTitle(),
@@ -85,7 +84,7 @@ public class LinkedinLoginTest {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
         Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
                 "LinkedIn: Log In or Sign Up", "Login page wrong");
-        linkedinLoginPage.login(email, password);
+        linkedinLoginPage.loginTry(email, password);
         sleep(3000);
 
         Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
@@ -93,17 +92,6 @@ public class LinkedinLoginTest {
         Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
                 "sign in Button is not Displayed.");
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     @AfterMethod
