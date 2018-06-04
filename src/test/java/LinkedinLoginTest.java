@@ -20,8 +20,8 @@ public class LinkedinLoginTest {
     @DataProvider
     public Object[][] validDataProvider() {
         return new Object[][]{
-                { "xobpak@gmail.com", "xobpak_pass" },
-                { "XOBPAK@GMAIL.COM", "xobpak_pass" },
+                { "xobpak@gmail.com", "QwS1qaz2wsx" },
+     //          { "XOBPAK@GMAIL.COM", "QwS1qaz2wsx" },
         };
     }
 
@@ -33,18 +33,12 @@ public class LinkedinLoginTest {
 
         Assert.assertTrue(linkedinLoginPage.isPageLoaded(),
                 "Login Page is not loaded.");
-        //Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
-                //"sign in Button is not Displayed.");
 
         LinkedinHomePage linkedinHomePage = linkedinLoginPage.login(email, password);
 
-        Assert.assertTrue(linkedinLoginPage.isPageLoaded(),
+        Assert.assertTrue(linkedinHomePage.isPageLoaded(),
                 "Login Page is not loaded.");
 
-        //Assert.assertEquals(linkedinHomePage.getCurrentUrl(),
-                //"https://www.linkedin.com/feed/", "Homepage URL is wrong.");
-        //Assert.assertTrue(linkedinHomePage.getCurrentTitle().contains("LinkedIn"),
-               // "Homepage Title is wrong.");
     }
 
     @DataProvider

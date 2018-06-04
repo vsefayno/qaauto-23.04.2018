@@ -16,4 +16,9 @@ public class LinkedinPasswordResetSubmitPage extends LinkedinBasePage {
     boolean isPageLoaded() {
         return resendUrl.isDisplayed();
     }
+
+    public <T> T goResetLink(String link) {
+        webDriver.get(link);
+        return (T) new LinkedinPasswordSetPage(webDriver);
+    }
 }

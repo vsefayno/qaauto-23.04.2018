@@ -25,5 +25,11 @@ public class LinkedinPasswordResetPage extends LinkedinBasePage {
         resetPasswordButton.click();
         return (T) new LinkedinPasswordResetSubmitPage(webDriver);
     }
+
+    public GMailService getGmailService(String testEmail, String testPass, String testSubject) {
+        GMailService gmailService = new GMailService(testEmail, testPass, testSubject);
+        gmailService.connect();
+        return gmailService;
+    }
 }
 

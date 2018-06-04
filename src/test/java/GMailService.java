@@ -12,6 +12,7 @@ public class GMailService {
     String host = "imap.gmail.com";
     String user;
     String pass;
+    String subject;
 
     private volatile boolean isMessageReceived;
     private volatile String messageString;
@@ -20,28 +21,13 @@ public class GMailService {
     private IdleManager idleManager;
 
     /**
-     * Example of GMailService usage
-     * @param args - dummy args for main()
-     */
-    public static void main(String[] args) {
-        String messageSubject = "test";
-        String messageTo = "xobpak@gmail.com";
-        String messageFrom = "yarpan@gmail.com>";
-
-        GMailService gMailService = new GMailService();
-        gMailService.connect();
-        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 10);
-        System.out.println("Content: " + message);
-    }
-
-    /**
      * Default GMailService constructor with predefined user/pass credentials
      */
-    public GMailService(){
-        this.user = "xobpak@gmail.com";
-        this.pass = "sec22daf44";
+    public GMailService(String user, String pass, String subject){
+        this.user = user;
+        this.pass = pass;
+        this.subject = subject;
     }
-
 
     public synchronized void connect() {
         Properties properties = new Properties();
@@ -77,7 +63,6 @@ public class GMailService {
                               long timeoutInSec){
         try {
             inboxFolder.open(Folder.READ_WRITE);
-            System.out.println(inboxFolder);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -88,8 +73,6 @@ public class GMailService {
                 Folder folder = (Folder)ev.getSource();
                 try {
                     Message[] messages = ev.getMessages();
-                    System.out.println("Folder: " + folder +
-                            " got " + messages.length + " new messages");
                     for (Message message : messages) {
                         String from = message.getFrom()[0].toString();
                         String to = message.getAllRecipients()[0].toString();
@@ -100,7 +83,6 @@ public class GMailService {
                             messageString = getText(message);
                             idleManager.stop();
                         }
-                        System.out.println("isMessageReceived =" + isMessageReceived);
                     }
 
                 } catch (MessagingException e) {
@@ -121,9 +103,8 @@ public class GMailService {
         long startTime = System.currentTimeMillis();
         while (true) {
             if (isMessageReceived && messageString != null) {
-                System.out.println("break");
                 break;
-            } else if ((System.currentTimeMillis() - startTime) > timeoutInSec * 10000) {
+            } else if ((System.currentTimeMillis() - startTime) > timeoutInSec * 1000) {
                 idleManager.stop();
                 break;
             }
@@ -134,9 +115,6 @@ public class GMailService {
 
     private boolean textIsHtml = false;
 
-    /**
-     * Return the primary text content of the message.
-     */
     private String getText(Part p) throws
             MessagingException, IOException {
         if (p.isMimeType("text/*")) {
