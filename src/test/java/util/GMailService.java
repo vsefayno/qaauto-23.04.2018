@@ -1,3 +1,5 @@
+package util;
+
 import com.sun.mail.imap.IdleManager;
 
 import javax.mail.*;
@@ -12,7 +14,6 @@ public class GMailService {
     String host = "imap.gmail.com";
     String user;
     String pass;
-    String subject;
 
     private volatile boolean isMessageReceived;
     private volatile String messageString;
@@ -21,12 +22,36 @@ public class GMailService {
     private IdleManager idleManager;
 
     /**
-     * Default GMailService constructor with predefined user/pass credentials
+     * Example of util.GMailService usage
+     * @param args - dummy args for main()
      */
-    public GMailService(String user, String pass, String subject){
+    public static void main(String[] args) {
+        String messageSubject = "Lesson 10";
+        String messageTo = "postoltest@gmail.com";
+        String messageFrom = "mykola.gladchenko@gmail.com";
+
+        GMailService gMailService = new GMailService();
+        gMailService.connect();
+        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 60);
+        System.out.println("Content: " + message);
+    }
+
+    /**
+     * Default util.GMailService constructor with predefined user/pass credentials
+     */
+    public GMailService(){
+        this.user = "postoltest@gmail.com";
+        this.pass = "q12345678T";
+    }
+
+    /**
+     * Custom util.GMailService constructor that allows to set user/pass credentials
+     * @param user - gMail acc username
+     * @param pass - gMail acc pass
+     */
+    public GMailService(String user, String pass){
         this.user = user;
         this.pass = pass;
-        this.subject = subject;
     }
 
     public synchronized void connect() {
@@ -50,14 +75,10 @@ public class GMailService {
 
             inboxFolder = store.getFolder("inbox");
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 
     public String waitMessage(String messageSubject, String messageTo, String messageFrom,
                               long timeoutInSec){
@@ -66,11 +87,9 @@ public class GMailService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
         inboxFolder.addMessageCountListener(new MessageCountAdapter() {
+            public synchronized void messagesAdded(MessageCountEvent ev) {
 
-            public void messagesAdded(MessageCountEvent ev) {
-                Folder folder = (Folder)ev.getSource();
                 try {
                     Message[] messages = ev.getMessages();
                     for (Message message : messages) {
@@ -115,6 +134,9 @@ public class GMailService {
 
     private boolean textIsHtml = false;
 
+    /**
+     * Return the primary text content of the message.
+     */
     private String getText(Part p) throws
             MessagingException, IOException {
         if (p.isMimeType("text/*")) {
